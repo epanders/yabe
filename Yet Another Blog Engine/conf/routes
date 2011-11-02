@@ -11,5 +11,21 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+POST    /posts/{postId}/comments                Application.postComment
+GET     /captcha                                Application.captcha
+GET     /posts/{<[0-9]+>id}             		Application.show
+GET     /posts/{tag}                    		Application.listTagged 
+
+# Import Secure routes
+*       /                                    	module:secure
+
+# Administration
+GET     /admin/?                                Admin.index
+GET     /admin/myPosts/{id}                     Admin.form
+GET     /admin/new                              Admin.form
+POST    /admin/myPosts/{id}                     Admin.save
+POST    /admin/new                              Admin.save
+*       /admin                                  module:crud
+
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
